@@ -6,5 +6,21 @@ compile('A')
 compile('B')
 
 require('A')
+local alib 
+
+local reg = debug.getregistry()
+
+for n,v in pairs(reg) do
+    print(n)
+    local path,name = n:match("LOADLIB: (.-)([A-Za-z0-9]+)%.so")
+    if path then
+        print("whee",path,name)
+        if name == 'A' then
+            alib = v
+            break
+        end
+    end
+end
+
 print('foo is defined now.')
-require('B')
+print(require('B')(alib))
