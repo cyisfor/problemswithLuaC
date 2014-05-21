@@ -1,8 +1,4 @@
 $ lua test.lua 
-foo is defined now.
-lua: error loading module 'B' from file './B.so':
-	./B.so: undefined symbol: foo
-stack traceback:
-	[C]: in ?
-	[C]: in function 'require'
-	test.lua:10: in main chunk
+LOADLIB: ./A.so
+whee	./	A
+42

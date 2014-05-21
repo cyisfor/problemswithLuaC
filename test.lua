@@ -22,5 +22,5 @@ for n,v in pairs(reg) do
     end
 end
 
-print('foo is defined now.')
+-- foo is only defined in alib.
 print(require('B')(alib))
