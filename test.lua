@@ -1,18 +1,24 @@
-function compile(name)
-    assert(true==os.execute('gcc -I /usr/include/luajit-2.0 -fPIC -shared -o '..name..'.so '..name..'.c'))
+function compile(name,inc)
+    if inc == nil then
+        inc = ''
+    else
+        inc = '-I'..inc
+    end
+    print('compile',name,inc)
+    assert(true==os.execute('gcc '..inc..' -I/usr/include/luajit-2.0 -fPIC -shared -o '..name..'.so '..name..'.c'))
 end
 
 compile('A')
-compile('B')
 
 require('A')
 local alib 
+local path,name
 
 local reg = debug.getregistry()
 
 for n,v in pairs(reg) do
     print(n)
-    local path,name = n:match("LOADLIB: (.-)([A-Za-z0-9]+)%.so")
+    path,name = n:match("LOADLIB: (.-)([A-Za-z0-9]+)%.so")
     if path then
         print("whee",path,name)
         if name == 'A' then
@@ -21,6 +27,7 @@ for n,v in pairs(reg) do
         end
     end
 end
+compile('B',path)
 
 -- foo is only defined in alib.
 print(require('B')(alib))

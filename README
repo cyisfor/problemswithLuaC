@@ -1,4 +1,6 @@
 $ lua test.lua 
+compile	A	
 LOADLIB: ./A.so
 whee	./	A
+compile	B	-I./
 42
